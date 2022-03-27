@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.sevenyes.w5cn07.ui.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        android:name="com.sevenyes.w5cn07.views.InfFragment"
+        android:label="@string/title_inf"
+        tools:layout="@layout/fragment_inf" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.sevenyes.w5cn07.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:name="com.sevenyes.w5cn07.views.CustomFragment"
+        android:label="@string/title_custom"
+        tools:layout="@layout/fragment_custom" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.sevenyes.w5cn07.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:name="com.sevenyes.w5cn07.views.JokeFragment"
+        android:label="@string/title_joke"
+        tools:layout="@layout/fragment_joke" />
 </navigation>
