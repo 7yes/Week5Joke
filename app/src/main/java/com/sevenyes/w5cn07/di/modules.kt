@@ -1,7 +1,6 @@
 package com.sevenyes.w5cn07.di
 
 import com.sevenyes.w5cn07.netrrestapi.JokesAPI
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
