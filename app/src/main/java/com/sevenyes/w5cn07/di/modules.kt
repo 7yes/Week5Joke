@@ -1,6 +1,8 @@
 package com.sevenyes.w5cn07.di
 
+import com.sevenyes.w5cn07.netrrestapi.IJokesApiRepository
 import com.sevenyes.w5cn07.netrrestapi.JokesAPI
+import com.sevenyes.w5cn07.netrrestapi.JokesAPIRepository
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
@@ -37,9 +39,14 @@ val rest = module {
             .create(JokesAPI::class.java)
     }
 
+    fun provideAPIRepository(jokesAPI: JokesAPI): IJokesApiRepository {
+        return JokesAPIRepository(jokesAPI)
+    }
+
     single { providesInterceptor() }
     single { providesOkHttpClient(get()) }
     single { providesRetrofit(get()) }
+    single { provideAPIRepository(get()) }
 
 }
 

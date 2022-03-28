@@ -8,12 +8,13 @@ import retrofit2.http.Path
 interface JokesAPI {
 
     @GET(RANDOM_PATH)
-    suspend fun getJokes (@Path("number") number : Int) : Response<Jokes>
+    suspend fun getJokes (@Path("number") number : Int = RANDOM_JOKE_COUNT) : Response<Jokes>
 
     companion object{
         //http://api.icndb.com/jokes/random/20
         const val BASE_PATH = "http://api.icndb.com/jokes/"
         private const val RANDOM_PATH = "random/{number}"
+        private const val RANDOM_JOKE_COUNT = 1
     }
 
 
