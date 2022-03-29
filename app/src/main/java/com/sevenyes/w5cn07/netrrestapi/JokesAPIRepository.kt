@@ -15,7 +15,7 @@ interface IJokesApiRepository {
 class JokesAPIRepository(private val jokesAPI: JokesAPI) : IJokesApiRepository {
 
     override suspend fun getJokes(number: Int): Response<Jokes> {
-        return jokesAPI.getJokes()
+        return jokesAPI.getJokes(number)
     }
 
     override suspend fun getCustom(

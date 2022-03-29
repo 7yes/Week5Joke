@@ -19,10 +19,9 @@ interface JokesAPI {
     ) : Response<Jokes>
 
     companion object{
-        //http://api.icndb.com/jokes/random/20
-        //http://api.icndb.com/jokes/random?firstName=John&lastName=Doe
         const val BASE_PATH = "https://api.icndb.com/jokes/"
         const val RANDOM_JOKE_COUNT = 1
+        const val RANDOM_JOKE_LIST = 20
         private const val RANDOM_PATH = "random/{number}"
     }
 }

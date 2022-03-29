@@ -61,11 +61,31 @@ class JokesViewModel(
                _singleJokeState.postValue(JokeUIState.ERROR(e))
             }
         }
-
     }
 
     fun reset() {
        _singleJokeState.value = JokeUIState.LOADING
+    }
+
+    fun getBigList() {
+        _singleJokeState.value = JokeUIState.LOADING
+        viewModelScope.launch(ioDispatcher) {
+            try {
+                val response = jokesAPIRepository.getJokes(JokesAPI.RANDOM_JOKE_LIST)
+                if(response.isSuccessful){
+
+                    response.body()?.let {
+                        _singleJokeState.postValue(JokeUIState.SUCCESS(it))
+                    } ?:throw Exception("Request not Success")
+
+                } else {
+                    throw Exception("Request not Success")
+                }
+
+            } catch (e: Exception){
+                _singleJokeState.postValue(JokeUIState.ERROR(e))
+            }
+        }
     }
 }
 
