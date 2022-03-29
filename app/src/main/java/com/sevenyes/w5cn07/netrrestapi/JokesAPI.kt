@@ -4,19 +4,25 @@ import com.sevenyes.w5cn07.models.Jokes
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface JokesAPI {
 
     @GET(RANDOM_PATH)
     suspend fun getJokes (@Path("number") number : Int = RANDOM_JOKE_COUNT) : Response<Jokes>
 
+    @GET(RANDOM_PATH)
+    suspend fun getCustom (
+        @Path("number") number : Int = RANDOM_JOKE_COUNT,
+        @Query("firstName") firstName : String,
+        @Query("lastName") lastName : String
+    ) : Response<Jokes>
+
     companion object{
         //http://api.icndb.com/jokes/random/20
-        const val BASE_PATH = "http://api.icndb.com/jokes/"
+        //http://api.icndb.com/jokes/random?firstName=John&lastName=Doe
+        const val BASE_PATH = "https://api.icndb.com/jokes/"
+        const val RANDOM_JOKE_COUNT = 1
         private const val RANDOM_PATH = "random/{number}"
-        private const val RANDOM_JOKE_COUNT = 1
     }
-
-
-
 }

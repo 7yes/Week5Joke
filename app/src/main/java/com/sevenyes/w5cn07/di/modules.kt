@@ -3,8 +3,10 @@ package com.sevenyes.w5cn07.di
 import com.sevenyes.w5cn07.netrrestapi.IJokesApiRepository
 import com.sevenyes.w5cn07.netrrestapi.JokesAPI
 import com.sevenyes.w5cn07.netrrestapi.JokesAPIRepository
+import com.sevenyes.w5cn07.viewmodels.JokesViewModel
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -39,7 +41,8 @@ val rest = module {
             .create(JokesAPI::class.java)
     }
 
-    fun provideAPIRepository(jokesAPI: JokesAPI): IJokesApiRepository {
+    fun provideAPIRepository(jokesAPI: JokesAPI):
+            IJokesApiRepository {
         return JokesAPIRepository(jokesAPI)
     }
 
@@ -50,3 +53,6 @@ val rest = module {
 
 }
 
+val viewModelModules = module {
+    viewModel { JokesViewModel(get())}
+}
