@@ -1,5 +1,6 @@
 package com.sevenyes.w5cn07.netrrestapi
 
+import android.util.Log
 import com.sevenyes.w5cn07.models.Jokes
 import retrofit2.Response
 
@@ -16,6 +17,7 @@ interface IJokesApiRepository {
 class JokesAPIRepository(private val jokesAPI: JokesAPI) : IJokesApiRepository {
 
     override suspend fun getJokes(number: Int, explicit: String): Response<Jokes> {
+        Log.d("TAG", "in get Jokes")
         return jokesAPI.getJokes(number,listOf(JokesAPI.EXPLICIT).toString())
     }
 

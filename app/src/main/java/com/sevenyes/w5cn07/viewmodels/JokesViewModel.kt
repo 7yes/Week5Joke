@@ -25,11 +25,13 @@ class JokesViewModel(
     val singleJokeState: LiveData<JokeUIState> get() = _singleJokeState
 
     var explicit : Boolean = false
+    var lastJoke =""
+    var lastCustomJoke =""
 
     fun checkedExplicitContent() = if(explicit) "" else JokesAPI.EXPLICIT
 
     fun getSingleJoke() {
-        _singleJokeState.value = JokeUIState.LOADING
+        //_singleJokeState.value = JokeUIState.LOADING
         viewModelScope.launch(ioDispatcher) {
 
             try {

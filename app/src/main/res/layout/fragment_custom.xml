@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".views.CustomFragment">
 
+
+
     <TextView
         android:id="@+id/text_custom"
         android:layout_width="match_parent"
