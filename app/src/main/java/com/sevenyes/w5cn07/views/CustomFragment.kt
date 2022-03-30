@@ -12,7 +12,7 @@ import com.sevenyes.w5cn07.views.state.JokeUIState
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 
-class CustomFragment : Fragment() {
+class CustomFragment : Fragment( )  {
 
     private var _binding: FragmentCustomBinding? = null
     private val binding get() = _binding!!

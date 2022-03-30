@@ -5,23 +5,25 @@ import retrofit2.Response
 
 
 interface IJokesApiRepository {
-    suspend fun getJokes(number: Int = JokesAPI.RANDOM_JOKE_COUNT): Response<Jokes>
+    suspend fun getJokes(number: Int = JokesAPI.RANDOM_JOKE_COUNT, explicit : String): Response<Jokes>
     suspend fun getCustom(
         firstName: String,
-        lastName: String
+        lastName: String,
+        explicit : String
     ): Response<Jokes>
 }
 
 class JokesAPIRepository(private val jokesAPI: JokesAPI) : IJokesApiRepository {
 
-    override suspend fun getJokes(number: Int): Response<Jokes> {
-        return jokesAPI.getJokes(number)
+    override suspend fun getJokes(number: Int, explicit: String): Response<Jokes> {
+        return jokesAPI.getJokes(number,listOf(JokesAPI.EXPLICIT).toString())
     }
 
     override suspend fun getCustom(
         firstName: String,
-        lastName: String
+        lastName: String,
+        explicit : String
     ): Response<Jokes> {
-        return jokesAPI.getCustom(JokesAPI.RANDOM_JOKE_COUNT, firstName, lastName)
+        return jokesAPI.getCustom(JokesAPI.RANDOM_JOKE_COUNT, firstName, lastName,explicit)
     }
 }

@@ -8,6 +8,7 @@
         <entry key="app/src/main/res/drawable/ic_inf.xml" value="0.2035" />
         <entry key="app/src/main/res/drawable/ic_joke.xml" value="0.2035" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.37604166666666666" />
+        <entry key="app/src/main/res/layout/fragment_config.xml" value="0.20052083333333334" />
         <entry key="app/src/main/res/layout/fragment_custom.xml" value="0.19583333333333333" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.19583333333333333" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.19583333333333333" />

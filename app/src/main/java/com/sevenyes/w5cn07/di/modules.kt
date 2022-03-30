@@ -1,8 +1,13 @@
 package com.sevenyes.w5cn07.di
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.net.NetworkRequest
 import com.sevenyes.w5cn07.netrrestapi.IJokesApiRepository
 import com.sevenyes.w5cn07.netrrestapi.JokesAPI
 import com.sevenyes.w5cn07.netrrestapi.JokesAPIRepository
+import com.sevenyes.w5cn07.services.NetworkMonitor
 import com.sevenyes.w5cn07.viewmodels.JokesViewModel
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -54,5 +59,32 @@ val rest = module {
 }
 
 val viewModelModules = module {
-    viewModel { JokesViewModel(get())}
+    viewModel { JokesViewModel(get(), get()) }
+}
+
+val servicesModule = module {
+
+    fun providesNetworkRequest(): NetworkRequest {
+        return NetworkRequest.Builder()
+            .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+            .build()
+    }
+
+    fun providesConnectivityManager(
+        context: Context
+    ): ConnectivityManager {
+        return context.getSystemService(Context.CONNECTIVITY_SERVICE)
+                as ConnectivityManager
+    }
+
+    fun providesNetworkMonitor(
+        connectivityManager: ConnectivityManager,
+        networkRequest: NetworkRequest
+    ): NetworkMonitor {
+        return NetworkMonitor(connectivityManager, networkRequest)
+    }
+
+    single { providesNetworkRequest() }
+    single { providesConnectivityManager(get()) }
+    single { providesNetworkMonitor(get(), get()) }
 }

@@ -9,19 +9,24 @@ import retrofit2.http.Query
 interface JokesAPI {
 
     @GET(RANDOM_PATH)
-    suspend fun getJokes (@Path("number") number : Int = RANDOM_JOKE_COUNT) : Response<Jokes>
+    suspend fun getJokes (
+        @Path("number") number : Int = RANDOM_JOKE_COUNT,
+        @Query("exclude", encoded = true) exclude : String
+    ) : Response<Jokes>
 
     @GET(RANDOM_PATH)
     suspend fun getCustom (
         @Path("number") number : Int = RANDOM_JOKE_COUNT,
         @Query("firstName") firstName : String,
-        @Query("lastName") lastName : String
+        @Query("lastName") lastName : String,
+        @Query("exclude", encoded = true) exclude : String
     ) : Response<Jokes>
 
     companion object{
         const val BASE_PATH = "https://api.icndb.com/jokes/"
         const val RANDOM_JOKE_COUNT = 1
         const val RANDOM_JOKE_LIST = 20
+        const val  EXPLICIT = "explicit"
         private const val RANDOM_PATH = "random/{number}"
     }
 }

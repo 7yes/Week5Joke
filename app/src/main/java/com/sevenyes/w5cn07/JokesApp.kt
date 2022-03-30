@@ -2,6 +2,7 @@ package com.sevenyes.w5cn07
 
 import android.app.Application
 import com.sevenyes.w5cn07.di.rest
+import com.sevenyes.w5cn07.di.servicesModule
 import com.sevenyes.w5cn07.di.viewModelModules
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -15,7 +16,7 @@ class JokesApp : Application() {
         startKoin {
             androidContext(this@JokesApp)
             modules(listOf(
-                rest, viewModelModules
+                rest, viewModelModules, servicesModule
             ))
         }
     }

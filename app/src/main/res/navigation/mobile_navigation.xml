@@ -22,4 +22,9 @@
         android:name="com.sevenyes.w5cn07.views.JokeFragment"
         android:label="@string/title_joke"
         tools:layout="@layout/fragment_joke" />
+    <fragment
+        android:id="@+id/configFragment"
+        android:name="com.sevenyes.w5cn07.ConfigFragment"
+        android:label="@string/title_config"
+        tools:layout="@layout/fragment_config" />
 </navigation>

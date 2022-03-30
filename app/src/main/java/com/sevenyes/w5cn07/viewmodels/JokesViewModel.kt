@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sevenyes.w5cn07.netrrestapi.IJokesApiRepository
 import com.sevenyes.w5cn07.netrrestapi.JokesAPI
-import com.sevenyes.w5cn07.netrrestapi.JokesAPIRepository
+import com.sevenyes.w5cn07.services.NetworkMonitor
 import com.sevenyes.w5cn07.views.state.JokeUIState
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -15,6 +15,7 @@ import java.lang.Exception
 
 class JokesViewModel(
     private val jokesAPIRepository: IJokesApiRepository,
+     val networkMonitor: NetworkMonitor,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 
 ) : ViewModel() {
@@ -23,12 +24,16 @@ class JokesViewModel(
         MutableLiveData(JokeUIState.LOADING)
     val singleJokeState: LiveData<JokeUIState> get() = _singleJokeState
 
+    var explicit : Boolean = false
+
+    fun checkedExplicitContent() = if(explicit) "" else JokesAPI.EXPLICIT
+
     fun getSingleJoke() {
         _singleJokeState.value = JokeUIState.LOADING
         viewModelScope.launch(ioDispatcher) {
 
             try {
-                val response = jokesAPIRepository.getJokes(1)
+                val response = jokesAPIRepository.getJokes(1, checkedExplicitContent())
                 if(response.isSuccessful) {
                     response.body()?.let {
                         _singleJokeState.postValue(JokeUIState.SUCCESS(it))
@@ -46,7 +51,7 @@ class JokesViewModel(
         _singleJokeState.value = JokeUIState.LOADING
         viewModelScope.launch(ioDispatcher) {
             try {
-               val response = jokesAPIRepository.getCustom(firstName, lastName)
+               val response = jokesAPIRepository.getCustom(firstName, lastName, checkedExplicitContent())
                 if(response.isSuccessful){
 
                    response.body()?.let {
@@ -71,7 +76,8 @@ class JokesViewModel(
         _singleJokeState.value = JokeUIState.LOADING
         viewModelScope.launch(ioDispatcher) {
             try {
-                val response = jokesAPIRepository.getJokes(JokesAPI.RANDOM_JOKE_LIST)
+                val response = jokesAPIRepository.getJokes(JokesAPI.RANDOM_JOKE_LIST,
+                    checkedExplicitContent())
                 if(response.isSuccessful){
 
                     response.body()?.let {
