@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.sevenyes.w5cn07.database.IDataBaseRepository
 import com.sevenyes.w5cn07.netrrestapi.IJokesApiRepository
 import com.sevenyes.w5cn07.netrrestapi.JokesAPI
-import com.sevenyes.w5cn07.services.NetworkMonitor
 import com.sevenyes.w5cn07.views.state.JokeUIState
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -15,7 +15,7 @@ import java.lang.Exception
 
 class JokesViewModel(
     private val jokesAPIRepository: IJokesApiRepository,
-     val networkMonitor: NetworkMonitor,
+    private val dataBaseRepository: IDataBaseRepository,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 
 ) : ViewModel() {
@@ -38,7 +38,7 @@ class JokesViewModel(
                 val response = jokesAPIRepository.getJokes(1, checkedExplicitContent())
                 if(response.isSuccessful) {
                     response.body()?.let {
-                        _singleJokeState.postValue(JokeUIState.SUCCESS(it))
+                        _singleJokeState.postValue(JokeUIState.SUCCESS(it.jokes))
                     } ?: throw Exception("Request not Success")
                 } else {
                   throw Exception("Request not Success")
@@ -57,7 +57,7 @@ class JokesViewModel(
                 if(response.isSuccessful){
 
                    response.body()?.let {
-                       _singleJokeState.postValue(JokeUIState.SUCCESS(it))
+                       _singleJokeState.postValue(JokeUIState.SUCCESS(it.jokes))
                    } ?:throw Exception("Request not Success")
 
                 } else {
@@ -70,9 +70,7 @@ class JokesViewModel(
         }
     }
 
-    fun reset() {
-       _singleJokeState.value = JokeUIState.LOADING
-    }
+
 
     fun getBigList() {
         _singleJokeState.value = JokeUIState.LOADING
@@ -83,7 +81,8 @@ class JokesViewModel(
                 if(response.isSuccessful){
 
                     response.body()?.let {
-                        _singleJokeState.postValue(JokeUIState.SUCCESS(it))
+                       dataBaseRepository.writeAll(it.jokes)
+
                     } ?:throw Exception("Request not Success")
 
                 } else {
@@ -93,6 +92,12 @@ class JokesViewModel(
             } catch (e: Exception){
                 _singleJokeState.postValue(JokeUIState.ERROR(e))
             }
+            try {
+                _singleJokeState.postValue(JokeUIState.SUCCESS(dataBaseRepository.readAll()))
+            } catch (e: Exception) {
+                throw Exception("No Internet or DataBase")
+            }
+
         }
     }
 }

@@ -4,6 +4,11 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
+import androidx.room.Room
+import com.sevenyes.w5cn07.database.DataBaseRepository
+import com.sevenyes.w5cn07.database.IDataBaseRepository
+import com.sevenyes.w5cn07.database.JokeDataBase
+import com.sevenyes.w5cn07.database.JokesDao
 import com.sevenyes.w5cn07.netrrestapi.IJokesApiRepository
 import com.sevenyes.w5cn07.netrrestapi.JokesAPI
 import com.sevenyes.w5cn07.netrrestapi.JokesAPIRepository
@@ -87,4 +92,21 @@ val servicesModule = module {
     single { providesNetworkRequest() }
     single { providesConnectivityManager(get()) }
     single { providesNetworkMonitor(get(), get()) }
+}
+
+val dataBaseModule = module {
+
+    fun providesDataBase(context: Context): JokeDataBase =
+        Room.databaseBuilder(
+            context,
+            JokeDataBase::class.java, "jokesDB"
+        ).build()
+
+    fun providesJokesDao(dataBase: JokeDataBase) = dataBase.jokesDao()
+
+    fun providesRepository(jokesDao: JokesDao): IDataBaseRepository = DataBaseRepository(jokesDao)
+
+    single { providesDataBase(get()) }
+    single { providesJokesDao(get()) }
+    single { providesRepository(get()) }
 }

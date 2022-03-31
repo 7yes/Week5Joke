@@ -86,7 +86,7 @@ class InfFragment : Fragment() {
         when (jokesUIState) {
             is JokeUIState.SUCCESS -> {
                 requestinMore = false
-                adapterJoke.appendJokes(jokesUIState.jokes.jokes)
+                adapterJoke.appendJokes(jokesUIState.jokes)
             }
             is JokeUIState.LOADING -> {
                 /// progres bar

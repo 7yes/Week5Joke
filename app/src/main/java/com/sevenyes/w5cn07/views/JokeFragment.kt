@@ -36,7 +36,7 @@ class JokeFragment : Fragment() {
                     if(UPDATE)
                     when( it) {
                         is JokeUIState.SUCCESS -> {
-                            binding.textJoke.text = it.jokes.jokes[0].joke
+                            binding.textJoke.text = it.jokes[0].joke
                             //viewModel.reset()
                             UPDATE = false
                             Log.d("TAG", "succes in joke")

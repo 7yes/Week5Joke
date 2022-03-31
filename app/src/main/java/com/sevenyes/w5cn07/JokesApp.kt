@@ -1,6 +1,7 @@
 package com.sevenyes.w5cn07
 
 import android.app.Application
+import com.sevenyes.w5cn07.di.dataBaseModule
 import com.sevenyes.w5cn07.di.rest
 import com.sevenyes.w5cn07.di.servicesModule
 import com.sevenyes.w5cn07.di.viewModelModules
@@ -16,7 +17,10 @@ class JokesApp : Application() {
         startKoin {
             androidContext(this@JokesApp)
             modules(listOf(
-                rest, viewModelModules, servicesModule
+                rest,
+                servicesModule,
+                viewModelModules,
+                dataBaseModule
             ))
         }
     }

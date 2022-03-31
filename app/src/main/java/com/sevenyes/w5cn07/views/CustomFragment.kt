@@ -46,7 +46,7 @@ class CustomFragment : Fragment( )  {
             when (it) {
                 is JokeUIState.SUCCESS -> {
                     Log.d("TAG", "SUCESS")
-                    binding.textCustom.text = it.jokes.jokes[0].joke
+                    binding.textCustom.text = it.jokes[0].joke
                     Log.d("TAG", "resset")
                 }
                 is JokeUIState.LOADING -> {
