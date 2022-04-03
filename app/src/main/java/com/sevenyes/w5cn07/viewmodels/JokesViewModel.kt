@@ -24,14 +24,14 @@ class JokesViewModel(
         MutableLiveData(JokeUIState.LOADING)
     val singleJokeState: LiveData<JokeUIState> get() = _singleJokeState
 
-    var explicit : Boolean = false
+    var explicit = false
     var lastJoke =""
     var lastCustomJoke =""
 
-    fun checkedExplicitContent() = if(explicit) "" else JokesAPI.EXPLICIT
+    private fun checkedExplicitContent() = if(explicit) "" else JokesAPI.EXPLICIT
 
     fun getSingleJoke() {
-        //_singleJokeState.value = JokeUIState.LOADING
+
         viewModelScope.launch(ioDispatcher) {
 
             try {

@@ -19,8 +19,6 @@ class CustomFragment : Fragment( )  {
     private val binding get() = _binding!!
     private val viewModel: JokesViewModel by sharedViewModel()
 
-
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
