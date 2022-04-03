@@ -48,7 +48,7 @@ class CustomFragment : Fragment( )  {
                     Log.d("TAG", "resset")
                 }
                 is JokeUIState.LOADING -> {
-                    binding.textCustom.text = "Loading..."
+                    binding.textCustom.text = String.format("Loading...")
                     Log.d("TAG", "loadin")
                 }
                 is JokeUIState.ERROR -> {
